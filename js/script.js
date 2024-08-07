@@ -27,7 +27,77 @@ for (let indice in frutas) {
 }
 console.table("=========================LOOP FOR EACH");
 //forEach
-frutas.forEach(function(frutas,indice,fArray){
+frutas.forEach(function (frutas, indice, fArray) {
     console.log(fArray[indice]);
 });
 
+
+//Recuperando a lista ul que esta no HTML de id=lista.
+let lista = document.getElementById("lista");
+
+function renderizaLista() {
+    lista.innerHTML = "";
+    for (let fruta of frutas) {
+        //Criando um elemento li e adicionando o texto.
+        let item = document.createElement("li");
+        item.textContent = fruta;
+        //Adicionando o item criado a lista.
+        lista.appendChild(item);
+    }
+}
+
+//Atrelando um evento de click ao botão btnAddFinal para ele adicionar
+// uma nova fruta ao array no final.
+document.getElementById("btnAddFinal").addEventListener("click", () => {
+    let valorDigitadoNoCampo = document.getElementById("idFruta").value;
+    frutas.push(valorDigitadoNoCampo);
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+});
+
+//Atrelando um evento de click ao botão btnAddInício para ele adicionar
+// uma nova fruta ao array no início.
+document.getElementById("btnAddInicio").addEventListener("click", () => {
+    let valorDigitadoNoCampo = document.getElementById("idFruta").value;
+    frutas.unshift(valorDigitadoNoCampo);
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+});
+
+//Atrelando um evento de click ao botão btnDelInicio para ele remover
+// uma fruta do array no início.
+document.getElementById("btnDelInicio").addEventListener("click", () => {
+    frutas.shift();
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+});
+
+//Atrelando um evento de click ao botão btnDelFinal para ele remover
+// uma fruta do array no final.
+document.getElementById("btnDelFinal").addEventListener("click", () => {
+    frutas.pop();
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+});
+
+//Atrelando um evento de click ao botão btnSort para ele ordenar os dados em ordem
+// alfabética.
+document.getElementById("btnSort").addEventListener("click", () => {
+    frutas.sort();
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+});
+
+//Atrelando um evento de click ao botão btnReverse para ele reverter a ordem
+// dos dados do array.
+document.getElementById("btnReverse").addEventListener("click", () => {
+    frutas.reverse();
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+});
+
+
+
+
+//Iniciando a lista!
+renderizaLista();
