@@ -96,7 +96,17 @@ document.getElementById("btnReverse").addEventListener("click", () => {
     renderizaLista();
 });
 
-
+//Atrelando um evento de click ao botão btnDeleta para pesquisar o item passado e 
+// deletar o item da lista se ele existir
+document.getElementById("btnDeleta").addEventListener("click", () => {
+ let valorDigitadoNoCampo = document.getElementById("idFruta").value;
+ let index = frutas.indexOf(valorDigitadoNoCampo);
+ if (index > -1) {
+    frutas.splice(index, 1);
+    //Chamando a função de renderização da lista!
+    renderizaLista();
+    }
+});
 
 
 //Iniciando a lista!
