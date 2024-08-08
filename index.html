@@ -3,33 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo-1</title>
+    <title>Nome : pf0670</title>
+    <link rel="stylesheet" href="./css/style.css">
     <script src="./js/script.js" defer></script>
 </head>
 <body>
-    <h1>Manipulação de Array</h1>
 
-    <div>
-        <form>
+    <header>
+        <h1>Sistema de Manipulação de Arrays</h1>
+    </header>
+
+    <div id="container">
+        <form action="#" id="form-names">
             <div>
-                <label for="idFruta">Nome da Fruta</label>
-                <input type="text" name="fruta" id="idFruta">
+                <label for="idNome">Nome:</label>
+                <input type="text" id="idNome" name="nome" required>
             </div>
             <div>
-                <button type="button" id="btnAddFinal">Adiciona no Final</button>
-                <button type="button" id="btnAddInicio">Adiciona no Início</button>
-                <button type="button" id="btnDelFinal">Deleta do Final</button>
-                <button type="button" id="btnDelInicio">Deleta do Início</button>
-                <button type="button" id="btnSort">Ordena</button>
-                <button type="button" id="btnReverse">Reverte</button>
-                <button type="button" id="btnDeleta">Apaga Fruta</button>
+                <button type="button" id="btnAdd">Inserir nome</button>
+            </div>
+            <div>
+                <button type="button" id="btnOrdenar">Ordenar nomes</button>
+            </div>
+            <div>
+                <button type="button" id="btnReverter">Reverter nomes</button>
+            </div>
+            <div>
+                <button type="button" id="btnRemover">Remover nomes</button>
             </div>
         </form>
     </div>
+
+    <h2>Lista de Nomes:</h2>
 
     <div>
         <ul id="lista"></ul>
     </div>
 
+    <footer>
+        <p>Listas Humanas - 2024&copy;</p>
+    </footer>
 </body>
 </html>

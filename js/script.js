@@ -1,113 +1,109 @@
-// console.log("Bem vindo novamente!");
 
-//Declarando um array de frutas do Brasil.
-let frutas = ["Maçã", "Banana", "Laranja",
-    "Manga", "Açaí", "Goiaba", "Ameixa",
-    "Cereja", "Mirtilo", "Uva"];
+document.addEventListener('DOMContentLoaded', function () {
 
-//Imprimir o array com console log e table.
-console.log(frutas);
-console.table(frutas);
-console.log(frutas[0]); //Imprimir a primeira posição do array.
-console.table("=========================LOOPS FOR/FOR OF/FOR IN/FOR EACH");
-console.table("=========================LOOP FOR");
-//for
-for (let i = 0; i < frutas.length; i++) {
-    console.log(frutas[i]);
-}
-console.table("=========================LOOP FOR OF");
-//for of
-for (let fruta of frutas) {
-    console.log(fruta);
-}
-console.table("=========================LOOP FOR IN");
-//for in
-for (let indice in frutas) {
-    console.log(frutas[indice]);
-}
-console.table("=========================LOOP FOR EACH");
-//forEach
-frutas.forEach(function (frutas, indice, fArray) {
-    console.log(fArray[indice]);
-});
+    //Lista de elementos manipulados:
+    const formulario = document.querySelector("#form-names");
+    const inputNome = document.querySelector("#idNome");
+    const botaoAdd = document.querySelector("#btnAdd");
+    const botaoOrdenar = document.querySelector("#btnOrdenar");
+    const botaoReverter = document.querySelector("#btnReverter");
+
+    const lista = document.querySelector("#lista");
 
 
-//Recuperando a lista ul que esta no HTML de id=lista.
-let lista = document.getElementById("lista");
 
-function renderizaLista() {
-    lista.innerHTML = "";
-    for (let fruta of frutas) {
-        //Criando um elemento li e adicionando o texto.
-        let item = document.createElement("li");
-        item.textContent = fruta;
-        //Adicionando o item criado a lista.
-        lista.appendChild(item);
+    //Verifica se o array existe ou não
+
+    //Usando localStorage
+    // let listaDeNomes = JSON.parse(localStorage.getItem("listaDeNomes")) || [];
+
+    //Usando event loaded
+    let arrayDeNomes = ["Gabriel","Joel","Manoel","Pedro","Arthur","Kiko"];
+
+    //Função para adicionar um nome na lista:
+    function addNome(nome) {
+
+        if (nome !== undefined && nome !== "") {
+            arrayDeNomes.push(nome);
+            inputNome.value = "";
+            renderizarLista();
+            console.log("Nome inserido com sucesso na lista!");
+        } else {
+            console.log("Por favor, insira um nome!");
+        }
     }
-}
 
-//Atrelando um evento de click ao botão btnAddFinal para ele adicionar
-// uma nova fruta ao array no final.
-document.getElementById("btnAddFinal").addEventListener("click", () => {
-    let valorDigitadoNoCampo = document.getElementById("idFruta").value;
-    frutas.push(valorDigitadoNoCampo);
-    //Chamando a função de renderização da lista!
-    renderizaLista();
-});
+    //Uma forma bastante eficiente de imprimir os dados é criar uma função para renderizar a lista.
+    function renderizarLista() {
+        //Zerando a lista não podemos esquecer nunca de guardar os nomes em outro lugar.
+        lista.innerHTML = "";
+        // for (let x = 0; x < arrayDeNomes.length; x++) {
+        //     const liElement = document.createElement("li");
+        //     liElement.textContent = arrayDeNomes[x];
+        //     lista.appendChild(liElement);
+        // }
+        arrayDeNomes.forEach((nome)=>{
+            const liElement = document.createElement("li");
+            liElement.textContent = nome;
 
-//Atrelando um evento de click ao botão btnAddInício para ele adicionar
-// uma nova fruta ao array no início.
-document.getElementById("btnAddInicio").addEventListener("click", () => {
-    let valorDigitadoNoCampo = document.getElementById("idFruta").value;
-    frutas.unshift(valorDigitadoNoCampo);
-    //Chamando a função de renderização da lista!
-    renderizaLista();
-});
 
-//Atrelando um evento de click ao botão btnDelInicio para ele remover
-// uma fruta do array no início.
-document.getElementById("btnDelInicio").addEventListener("click", () => {
-    frutas.shift();
-    //Chamando a função de renderização da lista!
-    renderizaLista();
-});
+            //Criar um elemento botao para remover o próprio item da lista
+            let btnX = document.createElement("button");
+            btnX.textContent = " X ";
 
-//Atrelando um evento de click ao botão btnDelFinal para ele remover
-// uma fruta do array no final.
-document.getElementById("btnDelFinal").addEventListener("click", () => {
-    frutas.pop();
-    //Chamando a função de renderização da lista!
-    renderizaLista();
-});
 
-//Atrelando um evento de click ao botão btnSort para ele ordenar os dados em ordem
-// alfabética.
-document.getElementById("btnSort").addEventListener("click", () => {
-    frutas.sort();
-    //Chamando a função de renderização da lista!
-    renderizaLista();
-});
+            btnX.addEventListener("click", ()=>{
+                //gerar uma pesquisa com indexOf para localizar o item na lista
+                let indice = arrayDeNomes.indexOf(nome)
 
-//Atrelando um evento de click ao botão btnReverse para ele reverter a ordem
-// dos dados do array.
-document.getElementById("btnReverse").addEventListener("click", () => {
-    frutas.reverse();
-    //Chamando a função de renderização da lista!
-    renderizaLista();
-});
 
-//Atrelando um evento de click ao botão btnDeleta para pesquisar o item passado e 
-// deletar o item da lista se ele existir
-document.getElementById("btnDeleta").addEventListener("click", () => {
- let valorDigitadoNoCampo = document.getElementById("idFruta").value;
- let index = frutas.indexOf(valorDigitadoNoCampo);
- if (index > -1) {
-    frutas.splice(index, 1);
-    //Chamando a função de renderização da lista!
-    renderizaLista();
+                arrayDeNomes.splice(indice,1);
+                renderizarLista();
+            });
+
+            //Inserir o elemento botao no li.
+            liElement.appendChild(btnX);
+
+
+            lista.appendChild(liElement);
+        });
+
     }
+
+    //Função para ordenar a lista:
+    function ordenarLista() {
+        arrayDeNomes.sort();
+        renderizarLista();
+    }
+
+    //Função para ordenar a lista:
+    function reverterLista() {
+        arrayDeNomes.reverse();
+        renderizarLista();
+    }
+
+    function removerNomes(){
+        // arrayDeNomes.pop();
+        arrayDeNomes.shift();
+        renderizarLista();
+    }
+
+
+    //Chamando as funções
+    botaoAdd.addEventListener("click", function (e) {
+        e.preventDefault();
+        addNome(inputNome.value);
+    });
+
+    botaoOrdenar.addEventListener("click", function (e) {
+        ordenarLista();
+    });
+
+    botaoReverter.addEventListener("click", function (e) {
+        reverterLista();
+    });
+
+    document.getElementById("btnRemover").addEventListener("click", removerNomes);
+
+    renderizarLista();
 });
-
-
-//Iniciando a lista!
-renderizaLista();
